@@ -704,6 +704,27 @@ static int board_usb_hub_init(void)
 	return 0;
 }
 
+static void board_get_dram_type(void)
+{
+	char ddr_info[5][7] = {
+		"ddr3\0",
+		"ddr4\0",
+		"lpddr4\0",
+		"lpddr3\0",
+		"lpddr2\0",
+	};
+
+	unsigned int reg, val;
+
+	if (!getenv("dram_type")) {
+		reg = readl(SEC_AO_SEC_GP_CFG0);
+		val = (reg & 0x0006FFFC) >> 16;
+		printf("dram_cfg=%d\n", val);
+		setenv("dram_type", 0);
+		setenv("dram_type", *(ddr_info + val));
+	}
+}
+
 int board_late_init(void)
 {
 	TE(__func__);
@@ -715,6 +736,8 @@ int board_late_init(void)
 						"defenv_reserv; setenv upgrade_step 2; saveenv; fi;", 0);
 		/*add board late init function here*/
 		board_usb_hub_init();
+		board_get_dram_type();
+		run_command("printenv dram_type", 0);
 #ifndef DTB_BIND_KERNEL
 		int ret;
 		ret = run_command("store dtb read $dtb_mem_addr", 1);
