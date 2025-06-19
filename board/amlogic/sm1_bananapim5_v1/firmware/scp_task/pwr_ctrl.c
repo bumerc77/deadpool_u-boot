@@ -63,6 +63,14 @@ static void set_vddee_voltage(unsigned int target_voltage)
 
 static void power_off_at_24M(unsigned int suspend_from)
 {
+	/*set gpioAO_11 high to power off (sys_led, blue)*/
+	writel(readl(AO_GPIO_O) | (1 << 11), AO_GPIO_O);
+	writel(readl(AO_GPIO_O_EN_N) & (~(1 << 11)), AO_GPIO_O_EN_N);
+
+	/*set gpioAO_2 high to power off (sys_led, green)*/
+	writel(readl(AO_GPIO_O) | (1 << 2), AO_GPIO_O);
+	writel(readl(AO_GPIO_O_EN_N) & (~(1 << 2)), AO_GPIO_O_EN_N);
+
 	/*toggle gpioH_8 low to power off TFlash vdd*/
 	writel(readl(PREG_PAD_GPIO3_EN_N) ^ (1 << 8), PREG_PAD_GPIO3_EN_N);
 	writel(readl(PERIPHS_PIN_MUX_C) & (~(0xf)), PERIPHS_PIN_MUX_C);
