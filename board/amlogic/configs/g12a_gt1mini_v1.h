@@ -248,6 +248,7 @@
                 "bootm ${loadaddr};fi;"\
             "\0"\
         "recovery_from_flash="\
+            "run aml_dt_check;"\
             "get_valid_slot;"\
             "echo active_slot: ${active_slot};"\
             "if test ${active_slot} = normal; then "\
@@ -283,7 +284,7 @@
             "else "\
                 "setenv reboot_mode_android ""normal"";"\
                 "run storeargs;"\
-                "hdmitx hpd;hdmitx get_preferred_mode;hdmitx get_parse_edid;dovi process;osd open;osd clear;imgread pic logo bootup $loadaddr;bmp display $bootup_offset;bmp scale;vout output ${outputmode};dovi set;dovi pkg;vpp hdrpkt;"\
+                "hdmitx hpd;hdmitx get_preferred_mode;hdmitx get_parse_edid;setenv dolby_status 0;setenv dolby_vision_on 0;osd open;osd clear;imgread pic logo bootup $loadaddr;bmp display $bootup_offset;bmp scale;vout output ${outputmode};vpp hdrpkt;"\
             "fi;fi;"\
             "\0"\
         "cmdline_keys="\
@@ -292,8 +293,8 @@
                     "setenv bootargs ${bootargs} androidboot.serialno=${usid};"\
                     "setenv serial ${usid};"\
                 "else "\
-                    "setenv bootargs ${bootargs} androidboot.serialno=1234567890;"\
-                    "setenv serial 1234567890;"\
+                    "setenv bootargs ${bootargs} androidboot.serialno=1234567892;"\
+                    "setenv serial 1234567892;"\
                 "fi;"\
                 "if keyman read mac ${loadaddr} str; then "\
                     "setenv bootargs ${bootargs} mac=${mac} androidboot.mac=${mac};"\
@@ -304,8 +305,15 @@
                 "if keyman read oemkey ${loadaddr} str; then "\
                     "setenv bootargs ${bootargs} androidboot.oem.key1=${oemkey};"\
                 "else "\
-                    "setenv bootargs ${bootargs} androidboot.oem.key1=ATV00104319;"\
+                    "setenv bootargs ${bootargs} androidboot.oem.key1=ATV00100020;"\
                 "fi;"\
+            "fi;"\
+            "\0"\
+        "aml_dt_check="\
+            "if test -n ${aml_dt}; then "\
+                "echo using dt-id: ${aml_dt}; "\
+            "else "\
+                "setenv aml_dt g12a_u212_4g; "\
             "fi;"\
             "\0"\
         "bcb_cmd="\
@@ -315,6 +323,11 @@
         "upgrade_key="\
             "if gpio input GPIOAO_3; then "\
                 "echo detect upgrade key; run update;"\
+            "fi;"\
+            "\0"\
+        "recovery_key="\
+            "if gpio input GPIOAO_3; then "\
+                "echo detect recovery key; run recovery_from_flash;"\
             "fi;"\
             "\0"\
 	"irremote_update="\
