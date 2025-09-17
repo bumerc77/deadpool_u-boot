@@ -34,11 +34,11 @@
  */
 #define CONFIG_PLATFORM_POWER_INIT
 #define CONFIG_VCCK_INIT_VOLTAGE	800		// VCCK power up voltage
-#define CONFIG_VDDEE_INIT_VOLTAGE	800		// VDDEE power up voltage
+#define CONFIG_VDDEE_INIT_VOLTAGE	840		// VDDEE power up voltage
 #define CONFIG_VDDEE_SLEEP_VOLTAGE	770		// VDDEE suspend voltage
 
 /* configs for CEC */
-#define CONFIG_CEC_OSD_NAME		"AML_TV"
+#define CONFIG_CEC_OSD_NAME		"AML_MBOX"
 #define CONFIG_CEC_WAKEUP
 /*if use bt-wakeup,open it*/
 #define CONFIG_BT_WAKEUP
@@ -66,11 +66,11 @@
 
 //Enable ir remote wake up for bl30
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL1 0xef10fe01 //amlogic tv ir --- power
-#define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL2 0xFFFFFFFF
+#define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL2 0xae517f08 //beelink bt --- power
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL3 0xF20DFE01 //amlogic tv ir --- ch-
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL4 0XBA45BD02 //amlogic small ir--- power
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL5 0xe51afb04
-#define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL6 0xFFFFFFFF
+#define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL6 0xa659ff00 //beelink mini ir --- power
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL7 0xFFFFFFFF
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL8 0xFFFFFFFF
 #define CONFIG_IR_REMOTE_POWER_UP_KEY_VAL9 0xFFFFFFFF
@@ -560,7 +560,7 @@
 #define CONFIG_USBDOWNLOAD_GADGET 1
 #define CONFIG_SYS_CACHELINE_SIZE 64
 #define CONFIG_FASTBOOT_MAX_DOWN_SIZE	0x8000000
-#define CONFIG_DEVICE_PRODUCT	"franklin"
+#define CONFIG_DEVICE_PRODUCT	"gt1mini"
 
 //UBOOT Facotry usb/sdcard burning config
 #define CONFIG_AML_V2_FACTORY_BURN              1       //support facotry usb burning
@@ -690,8 +690,8 @@
 
 /* Choose One of Ethernet Type */
 #undef CONFIG_ETHERNET_NONE
-#define ETHERNET_INTERNAL_PHY
-#undef ETHERNET_EXTERNAL_PHY
+#undef ETHERNET_INTERNAL_PHY
+#define ETHERNET_EXTERNAL_PHY
 
 #define CONFIG_HIGH_TEMP_COOL 90
 #endif
