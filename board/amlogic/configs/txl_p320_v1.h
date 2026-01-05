@@ -236,10 +236,12 @@
          "update="\
             /*first usb burning, second sdc_burn, third ext-sd autoscr/recovery, last udisk autoscr/recovery*/\
             "run usb_burning; "\
-            "run sdc_burning; "\
             "if mmcinfo; then "\
+            "if test -e mmc 0 ${sdcburncfg}; then "\
+                "run sdc_burning; "\
+            "else "\
                 "run recovery_from_sdcard;"\
-            "fi;"\
+            "fi;fi;"\
             "if usb start 0; then "\
                 "run recovery_from_udisk;"\
             "fi;"\

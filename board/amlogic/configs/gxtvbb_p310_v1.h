@@ -169,10 +169,12 @@
 		"\0" \
 	"update="\
 		"run usb_burning; "\
-		"run sdc_burning; "\
-		"if mmcinfo; then "\
-			"run recovery_from_sdcard; "\
-		"fi; "\
+            	"if mmcinfo; then "\
+            	"if test -e mmc 0 ${sdcburncfg}; then "\
+                	"run sdc_burning; "\
+            	"else "\
+                	"run recovery_from_sdcard;"\
+            	"fi;fi;"\
 		"if usb start 0; then "\
 			"run recovery_from_udisk; "\
 		"fi; "\
