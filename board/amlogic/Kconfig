@@ -1,4 +1,3 @@
-
 config RAMDISK_MEM_ADDR
         hex
         default 0x0a000000
@@ -216,6 +215,10 @@ config G12A_U212_V1
 
 config G12A_U215_V1
 	bool "Support amlogic g12a u215 v1 board"
+	default n
+
+config SM1_BANANAPIM5_V1
+	bool "Support amlogic sm1 bananapim5 v1 board"
 	default n
 
 config SM1_ELEKTRA_V1
@@ -692,6 +695,10 @@ if SM1_AC232_V1
 source "board/amlogic/sm1_ac232_v1/Kconfig"
 endif
 
+if SM1_BANANAPIM5_V1
+source "board/amlogic/sm1_bananapim5_v1/Kconfig"
+endif
+
 if TM2_T962E2_AB319_V1
 source "board/amlogic/tm2_t962e2_ab319_v1/Kconfig"
 endif
@@ -762,4 +769,3 @@ endif
 if T5W_AT301_V1
 source "board/amlogic/t5w_at301_v1/Kconfig"
 endif
-
